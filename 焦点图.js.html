@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* { margin: 0;padding: 0; }
+		ul, ol{ list-style: none; }
+		img { vertical-align: middle; }
+		.slider {
+			width: 490px;
+			height: 170px;
+			margin: 100px auto;
+			position: relative;
+			overflow: hidden;
+		}
+		ul {
+			width: 500%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		li {
+			float: left;
+		}
+		ol {
+			position: absolute;
+			bottom: 10px;
+			left: 50%;
+			margin-left: -65px;
+		}
+		ol li {
+			width: 18px;
+			line-height: 18px;
+			text-align: center;
+			margin-right: 10px;
+			background-color: #fff;
+			cursor: pointer;
+		}
+		.current {
+			background-color: orange;
+		}
+	</style>
+</head>
+<body>
+	<div class="slider" id="slider">
+		<ul>
+			<li><a href="#"><img src="images/01.jpg"></a></li>
+			<li><a href="#"><img src="images/02.jpg"></a></li>
+			<li><a href="#"><img src="images/03.jpg"></a></li>
+			<li><a href="#"><img src="images/04.jpg"></a></li>
+			<li><a href="#"><img src="images/05.jpg"></a></li>
+		</ul>
+		<ol>
+			<li class="current">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ol>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	var slider = document.getElementById('slider');
+	var ul = slider.children[0];
+	var olLis = slider.children[1].children;
+	var leader = 0, target = 0;
+	for (var i = 0, len = olLis.length; i < len; i++) {
+		olLis[i].index = i;
+		olLis[i].onclick = function() {
+			for (var j = 0; j < len; j++) {
+				olLis[j].removeAttribute('class');
+			}
+			this.setAttribute('class', 'current');
+			target = -this.index * 490;
+		}
+	}
+	setInterval(function() {
+		leader = leader + (target - leader)/10;
+		ul.style.left = leader + 'px';
+	}, 30);
+</script>
